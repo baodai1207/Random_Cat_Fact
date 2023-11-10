@@ -1,8 +1,8 @@
-# React + Vite
+# Cat Fun Facts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### How to start the program
+`npm install`
+`npm run dev`
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### The results
+![image](https://github.com/baodai1207/Random_Cat_Fact/assets/25336029/6f1ebced-43ca-4070-8875-94fb4762f807)
