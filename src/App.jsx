@@ -1,45 +1,56 @@
-import './App.css'
-import { useState, useEffect } from 'react';
+import "./App.css";
+import { useState, useEffect } from "react";
 
 function CatFacts() {
-  const [fact, setFact] = useState(''); 
-  const [facts, setFacts] = useState([]);
+	const [fact, setFact] = useState("");
+	const [facts, setFacts] = useState([]);
+  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    getFact();
-  }, []);
+	useEffect(() => {
+		getFact();
+	}, []);
 
   const getFact = async () => {
-    const response = await fetch('https://meowfacts.herokuapp.com/');
-    const data = await response.json();
-    console.log(data.data)
-    setFact(data.data);
-    setFacts(prevFacts => [...prevFacts, data.data]);
-  }
+    setLoading(true)
+    try {
+      const response = await fetch("https://meowfacts.herokuapp.com/");
+      const data = await response.json();
+      setFact(data.data);
+      setFacts((prevFacts) => [data.data,...prevFacts]);
+    } catch (error) {
+      console.error("Can't fetch from api:", error);
+    }finally{
+      setLoading(false)
+    }
+  };
 
-  const handleClick = () => {
-    getFact();
-  }
+	const handleClick = () => {
+		getFact();
+	};
 
-  const resetFacts = () => {
-    setFacts([]);
-  }
+	const resetFacts = () => {
+		setFacts([]);
+	};
 
-  return (
-    <div>
-      <h1>Random Cat Fact</h1>
-      <p>{fact}</p>
+	return (
+		<div>
+			<h1>😻Random Cat Fact😻</h1>
+      <p>{loading? "Loading ..." : fact}</p>
 
-      <button onClick={handleClick}>Get New Fact</button>
+			<button onClick={handleClick}>Get New Fact</button>
 
-      <h2>Fact History</h2>
-      <ul>
-        {facts.map(fact => <li key={fact}>{fact}</li>)}
-      </ul>
+			<h2>Facts History</h2>
+			<ul>
+				{facts.map((fact, index) => (
+					<p key={index}>
+						<li>{fact}</li>
+					</p>
+				))}
+			</ul>
 
-      <button onClick={resetFacts}>Reset Facts</button>
-    </div>
-  );
+			<button onClick={resetFacts}>Reset Facts</button>
+		</div>
+	);
 }
 
 export default CatFacts;
